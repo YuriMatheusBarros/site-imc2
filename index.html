@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saúde e Bem-Estar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: #333;
+        }
+        header {
+            background-color: lightblue;
+            color: black;
+            text-align: center;
+            padding: 1rem;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: black;
+            color: white;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        @media screen and (max-width: 768px) {
+            .menu-icon {
+                display: block;
+            }
+            nav ul {
+                display: none;
+            }
+            nav ul.show {
+                display: block;
+            }
+            nav ul li {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+        #resultado-imc {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Saúde e Bem-Estar</h1>
+    </header>
+    <nav>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <ul id="menu">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#alimentacao">Alimentação</a></li>
+            <li><a href="#exercicios">Exercícios</a></li>
+            <li><a href="#saude-mental">Saúde Mental</a></li>
+            <li><a href="#imc">Calculadora de IMC</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <section id="inicio">
+            <h2>Bem-vindo ao Site de Saúde e Bem-Estar</h2>
+            <p>Aqui você encontrará informações sobre como cuidar da sua saúde física e mental, além de dicas para manter um estilo de vida saudável e equilibrado.</p>
+        </section>
+        <section id="habitos-saudaveis">
+            <h2>Hábitos Saudáveis</h2>
+            <ul>
+                <li>Mantenha uma alimentação balanceada</li>
+                <li>Pratique exercícios físicos regularmente</li>
+                <li>Cuide da sua saúde mental</li>
+                <li>Estabeleça uma rotina de sono adequada</li>
+                <li>Beba água suficiente ao longo do dia</li>
+            </ul>
+        </section>
+
+        <section id="imc">
+            <h2>Calculadora de IMC</h2>
+            <label for="peso">Peso (kg): </label>
+            <input type="number" id="peso" step="0.1" required>
+            <br><br>
+            <label for="altura">Altura (m): </label>
+            <input type="number" id="altura" step="0.01" required>
+            <br><br>
+            <button onclick="calcularIMC()">Calcular IMC</button>
+            <div id="resultado-imc"></div>
+        </section>
+    </div>
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.classList.toggle("show");
+        }
+
+        function calcularIMC() {
+            var peso = parseFloat(document.getElementById("peso").value);
+            var altura = parseFloat(document.getElementById("altura").value);
+
+            if (!isNaN(peso) && !isNaN(altura) && altura > 0) {
+                var imc = peso / (altura * altura);
+                var resultado = '';
+
+                if (imc < 18.5) {
+                    resultado = 'Abaixo do peso';
+                } else if (imc >= 18.5 && imc < 24.9) {
+                    resultado = 'Peso normal';
+                } else if (imc >= 25 && imc < 29.9) {
+                    resultado = 'Sobrepeso';
+                } else {
+                    resultado = 'Obesidade';
+                }
+
+                document.getElementById("resultado-imc").innerHTML = 'Seu IMC é ' + imc.toFixed(2) + ' (' + resultado + ')';
+            } else {
+                document.getElementById("resultado-imc").innerHTML = 'Por favor, insira valores válidos.';
+            }
+        }
+    </script>
+</body>
+</html>
